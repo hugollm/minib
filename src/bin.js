@@ -1,5 +1,7 @@
 const exec = require('child_process').exec;
 
+const chokidar = require('chokidar');
+
 const log = require('./log');
 const config = require(process.cwd() + '/minib.config.js');
 
@@ -26,6 +28,7 @@ function getTasks(mode) {
         task = config[name];
         task.name = name;
         task.cmd = task[mode];
+        task.mode = mode;
         return task;
     });
 }
@@ -37,6 +40,8 @@ function handleTask(task) {
         scheduleTask(task);
     else
         executeTask(task);
+    if (task.watch && task.mode == 'dev')
+        watchTask(task);
 }
 
 function scheduleTask(task) {
@@ -64,4 +69,15 @@ function taskOk(task, out) {
 function taskError(task, out) {
     log.error(task.name + ' ERROR');
     log.output(out);
+}
+
+function watchTask(task) {
+    log.notice(task.name + ' WATCHING');
+    let watcher = chokidar.watch(task.watch, {
+        ignored: /(^|[\/\\])\../,
+        ignoreInitial: true,
+    });
+    watcher.on('add', () => executeTask(task));
+    watcher.on('change', () => executeTask(task));
+    watcher.on('unlink', () => executeTask(task));
 }
