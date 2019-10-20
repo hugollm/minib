@@ -4,6 +4,12 @@
     "description": "Minimalist bundler for web applications.",
     "author": "Hugo Mota <hugo.txt@gmail.com> (https://github.com/hugollm)",
     "license": "MIT",
+    "bin": {
+        "minib": "src/bin.js"
+    },
+    "files": [
+        "/src"
+    ],
     "scripts": {
         "start": "node src/bin.js dev hello/.dev",
         "build": "node src/bin.js build"
