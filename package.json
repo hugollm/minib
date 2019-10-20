@@ -1,0 +1,7 @@
+{
+    "name": "minib",
+    "version": "0.0.0",
+    "description": "Minimalist bundler for web applications.",
+    "author": "Hugo Mota <hugo.txt@gmail.com> (https://github.com/hugollm)",
+    "license": "MIT"
+}
