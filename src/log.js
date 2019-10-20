@@ -23,7 +23,9 @@ exports.error = function(text) {
 }
 
 exports.output = function(text) {
-    console.log(withColors('---\n%s\n---', Dim), text.trim());
+    console.log(withColors('---', Dim));
+    console.log(withColors('%s', Dim), text.trim());
+    console.log(withColors('---', Dim));
 }
 
 function withColors(text, ...colors) {
