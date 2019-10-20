@@ -2,8 +2,9 @@ const exec = require('child_process').exec;
 
 const chokidar = require('chokidar');
 
-const log = require('./log');
 const config = require(process.cwd() + '/minib.config.js');
+const log = require('./log');
+const server = require('./server');
 
 
 exports.run = function(mode) {
@@ -54,6 +55,8 @@ function taskOk(task, out) {
     if (out)
         log.output(out);
     process.emit('OK:' + task.name);
+    if (task.reload && task.mode == 'dev')
+        server.io.emit('reload:' + task.reload);
 }
 
 function taskError(task, out) {

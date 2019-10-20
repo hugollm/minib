@@ -25,7 +25,7 @@ module.exports = {
         after: 'Setup',
         dev: 'sass hello/src/index.scss hello/.dev/index.css --source-map',
         build: 'sass hello/src/index.scss hello/dist/index.css --no-source-map',
-        watch: 'hello/*.scss',
+        watch: 'hello/src/*.scss',
         reload: 'styles',
     },
 
