@@ -1,21 +1,25 @@
+process.on('exit', (code) => {
+    console.log();
+});
+
 exports.debug = function(text) {
-    console.log(withColors(text, FgBlue));
+    console.log(withColors('+ ' + text, FgBlue));
 }
 
 exports.info = function(text) {
-    console.log(withColors(text, Bright, FgBlue));
+    console.log(withColors('+ ' + text, Bright, FgBlue));
 }
 
 exports.notice = function(text) {
-    console.log(withColors(text, Bright, FgCyan));
+    console.log(withColors('+ ' + text, Bright, FgCyan));
 }
 
 exports.ok = function(text) {
-    console.log(withColors(text, Bright, FgGreen));
+    console.log(withColors('+ ' + text, Bright, FgGreen));
 }
 
 exports.error = function(text) {
-    console.log(withColors(text, Bright, FgRed));
+    console.log(withColors('+ ' + text, Bright, FgRed));
 }
 
 exports.output = function(text) {
