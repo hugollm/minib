@@ -1,3 +1,5 @@
+const ID = (new Date()).getTime().toString(36);
+
 module.exports = {
 
     Setup: {
@@ -16,7 +18,7 @@ module.exports = {
     TypeScript: {
         after: 'Setup',
         dev: 'tsc hello/src/index.ts --outFile hello/.dev/index.js --sourceMap',
-        build: 'tsc hello/src/index.ts --outFile hello/dist/index.js',
+        build: `tsc hello/src/index.ts --outFile hello/dist/index.${ID}.js`,
         watch: 'hello/src/*.ts',
         reload: 'page',
     },
@@ -24,7 +26,7 @@ module.exports = {
     Sass: {
         after: 'Setup',
         dev: 'sass hello/src/index.scss hello/.dev/index.css --source-map',
-        build: 'sass hello/src/index.scss hello/dist/index.css --no-source-map',
+        build: `sass hello/src/index.scss hello/dist/index.${ID}.css --no-source-map`,
         watch: 'hello/src/*.scss',
         reload: 'styles',
     },
@@ -39,6 +41,11 @@ module.exports = {
 
     Uglify: {
         after: 'TypeScript',
-        build: 'uglifyjs hello/dist/index.js --compress --mangle --output hello/dist/index.js',
+        build: `uglifyjs hello/dist/index.${ID}.js --compress --mangle --output hello/dist/index.${ID}.js`,
+    },
+
+    Sed: {
+        after: 'Index',
+        build: `sed -i 's/index./index.${ID}./' hello/dist/index.html`,
     },
 };
