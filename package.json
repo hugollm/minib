@@ -5,11 +5,16 @@
     "author": "Hugo Mota <hugo.txt@gmail.com> (https://github.com/hugollm)",
     "license": "MIT",
     "scripts": {
-        "dev": "node src/bin.js dev .dev",
+        "start": "node src/bin.js dev hello/.dev",
         "build": "node src/bin.js build"
     },
     "dependencies": {
         "chokidar": "^3.2.2",
         "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "sass": "^1.23.0",
+        "typescript": "^3.6.4",
+        "uglify-js": "^3.6.3"
     }
 }

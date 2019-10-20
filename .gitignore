@@ -1,2 +1,4 @@
+/hello/.dev
+/hello/dist
 /node_modules
 /package-lock.json
