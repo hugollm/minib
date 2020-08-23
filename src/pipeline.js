@@ -42,6 +42,7 @@ function scheduleTask(task) {
 
 function executeTask(task) {
     log.info(task.name + ' RUNNING');
+    task.start = process.hrtime();
     exec(task.cmd, (error, stdout, stderr) => {
         if (error)
             taskError(task, stdout + stderr);
@@ -51,12 +52,18 @@ function executeTask(task) {
 }
 
 function taskOk(task, out) {
-    log.ok(task.name + ' OK');
+    log.ok(task.name + ' OK ' + taskDuration(task).toFixed(0) + 'ms');
     if (out)
         log.output(out);
     process.emit('OK:' + task.name);
     if (task.reload && task.mode == 'dev')
         server.io.emit('reload:' + task.reload);
+}
+
+function taskDuration(task) {
+    t = process.hrtime(task.start);
+    ms = (t[0] * 1000) + (t[1] / 1000000);
+    return ms;
 }
 
 function taskError(task, out) {
